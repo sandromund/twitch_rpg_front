@@ -36,30 +36,36 @@
                         characterDiv.classList.add('character');
 
                         characterDiv.innerHTML = `
-                            <h2>${character.displayname}</h2>
-                            <div class="stat">
-                                <label>HP:</label>
-                                <div class="bar-container">
-                                    <div class="bar" style="width: ${hpPercentage}%"></div>
+                                <h2>${character.displayname}</h2>
+                                <div class="stat">
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: ${hpPercentage}%; display: flex; justify-content: space-between; padding: 0 5px;">
+                                            <span>HP</span>
+                                            <span></span> <!-- Empty span to keep text on the right -->
+                                            <span>${character.hp} / ${character.hp_max}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <span>${character.hp} / ${character.hp_max}</span>
-                            </div>
-                            <div class="stat">
-                                <label>Threat:</label>
-                                <div class="bar-container">
-                                    <div class="bar threat-bar" style="width: ${threatPercentage}%"></div>
+                                <div class="stat">
+                                    <div class="bar-container">
+                                        <div class="bar threat-bar" style="width: ${threatPercentage}%; display: flex; justify-content: space-between; padding: 0 5px;">
+                                            <span>Threat</span>
+                                            <span></span> <!-- Empty span to keep text on the right -->
+                                            <span>${character.threat} </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <span>${character.threat}</span>
-                            </div>
-                            <div class="stat">
-                                <label>Attack:</label>
-                                <span>${character.atk}</span>
-                            </div>
-                            <div class="stat">
-                                <label>Total Damage:</label>
-                                <span>${character.total_dmg}</span>
-                            </div>
-                        `;
+                                <div class="stat">
+                                    <label>Attack:</label>
+                                    <span>${character.atk}</span>
+                                </div>
+                                <div class="stat">
+                                    <label>Total Damage:</label>
+                                    <span>${character.total_dmg}</span>
+                                </div>
+                            `;
+
+
 
                         dataDiv.appendChild(characterDiv);
                     });
