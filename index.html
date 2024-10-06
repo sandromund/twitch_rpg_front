@@ -4,32 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Data Visualization</title>
+    <title>Character Data with Live Bars</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <h1>Character Data</h1>
-    <div id="error-message" class="hidden"></div>
-    <table id="character-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Display Name</th>
-                <th>HP</th>
-                <th>Max HP</th>
-                <th>Attack</th>
-                <th>Threat</th>
-                <th>Total Damage</th>
-                <th>Cooldown</th>
-            </tr>
-        </thead>
-        <tbody id="character-tbody">
-            <!-- Character data will be injected here -->
-        </tbody>
-    </table>
+    <div id="data"></div>
 
-    <script src="script.js"></script>
+    <script>
+        const apiUrl = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
+
+        function fetchCharacterData() {
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const dataDiv = document.getElementById('data');
+                    dataDiv.innerHTML = '';  // Clear previous content
+                    data.sort((a, b) => b.threat - a.threat);  // Sort characters by threat (highest first)
+
+                    data.forEach(character => {
+                        const hpPercentage = (character.hp / character.hp_max) * 100;
+                        const threatPercentage = character.threat;
+
+                        const characterDiv = document.createElement('div');
+                        characterDiv.classList.add('character');
+
+                        characterDiv.innerHTML = `
+                            <h2>${character.displayname}</h2>
+                            <div class="stat">
+                                <label>HP:</label>
+                                <div class="bar-container">
+                                    <div class="bar" style="width: ${hpPercentage}%"></div>
+                                </div>
+                                <span>${character.hp} / ${character.hp_max}</span>
+                            </div>
+                            <div class="stat">
+                                <label>Threat:</label>
+                                <div class="bar-container">
+                                    <div class="bar threat-bar" style="width: ${threatPercentage}%"></div>
+                                </div>
+                                <span>${character.threat}</span>
+                            </div>
+                            <div class="stat">
+                                <label>Attack:</label>
+                                <span>${character.atk}</span>
+                            </div>
+                            <div class="stat">
+                                <label>Total Damage:</label>
+                                <span>${character.total_dmg}</span>
+                            </div>
+                        `;
+
+                        dataDiv.appendChild(characterDiv);
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('data').textContent = 'Error fetching data: ' + error.message;
+                });
+        }
+
+        fetchCharacterData();  // Fetch on page load
+    </script>
 </body>
 
 </html>
