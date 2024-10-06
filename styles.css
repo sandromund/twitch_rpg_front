@@ -68,3 +68,18 @@ span {
     font-size: 14px;
     font-weight: bold;
 }
+
+.attack-info {
+    display: flex;
+    align-items: center;
+    /* Center align the icon and number vertically */
+    margin-top: 5px;
+    /* Optional margin for spacing */
+}
+
+.attack-icon {
+    margin-right: 5px;
+    /* Space between icon and attack number */
+    font-size: 18px;
+    /* Adjust size as needed */
+}
