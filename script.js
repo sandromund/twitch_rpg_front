@@ -1,45 +1,61 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const apiUrl = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
-    const fullUrl = apiUrl;
+const apiUrl = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
 
-    const characterTableBody = document.getElementById('character-tbody');
-    const errorMessage = document.getElementById('error-message');
+function fetchCharacterData() {
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const dataDiv = document.getElementById('data');
+            dataDiv.innerHTML = '';  // Clear previous content
+            data.sort((a, b) => b.threat - a.threat);  // Sort characters by threat (highest first)
 
-    function fetchCharacterData() {
-        fetch(fullUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.length === 0) {
-                    errorMessage.textContent = 'No character data found.';
-                    errorMessage.classList.remove('hidden');
-                    return;
-                }
+            data.forEach(character => {
+                const hpPercentage = (character.hp / character.hp_max) * 100;
+                const threatPercentage = character.threat;
 
-                data.forEach(character => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${character.id}</td>
-                        <td>${character.displayname}</td>
-                        <td>${character.hp}</td>
-                        <td>${character.hp_max}</td>
-                        <td>${character.atk}</td>
-                        <td>${character.threat}</td>
-                        <td>${character.total_dmg}</td>
-                        <td>${new Date(character.cooldown).toLocaleString()}</td>
-                    `;
-                    characterTableBody.appendChild(row);
-                });
-            })
-            .catch(error => {
-                errorMessage.textContent = 'Failed to fetch data: ' + error.message;
-                errorMessage.classList.remove('hidden');
+                const characterDiv = document.createElement('div');
+                characterDiv.classList.add('character');
+
+                characterDiv.innerHTML = `
+                    <div class="attack-info">
+                        <span>${character.displayname}</span>
+                        <span></span>
+                        <span class="attack-icon">⚔️</span>
+                        <span>${character.atk}</span>
+                    </div>
+                    <div class="stat">
+                        <div class="bar-container">
+                            <div class="bar" style="width: ${hpPercentage}%; display: flex; justify-content: flex-start; align-items: center; padding: 0 5px;">
+                                <span>HP</span>
+                                <span style="margin-left: auto;">${character.hp} / ${character.hp_max}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="bar-container">
+                            <div class="bar threat-bar" style="width: ${threatPercentage}%; display: flex; justify-content: space-between; padding: 0 5px;">
+                                <span>Threat</span>
+                                <span></span> <!-- Empty span to keep text on the right -->
+                                <span>${character.threat}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <label>Total Damage:</label>
+                        <span>${character.total_dmg}</span>
+                    </div>
+                `;
+
+                dataDiv.appendChild(characterDiv);
             });
-    }
+        })
+        .catch(error => {
+            document.getElementById('data').textContent = 'Error fetching data: ' + error.message;
+        });
+}
 
-    fetchCharacterData();
-});
+fetchCharacterData();  // Fetch on page load
