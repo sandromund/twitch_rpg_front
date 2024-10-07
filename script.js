@@ -21,35 +21,41 @@ function fetchCharacterData() {
                 characterDiv.classList.add('character');
 
                 characterDiv.innerHTML = `
-                    <div class="attack-info">
-                        <span>${character.displayname}</span>
-                        <span></span>
-                        <span class="attack-icon">⚔️</span>
-                        <span>${character.atk}</span>
-                    </div>
-                    <div class="stat">
-                        <div class="bar-container">
-                            <div class="bar" style="width: ${hpPercentage}%; display: flex; justify-content: flex-start; align-items: center; padding: 0 5px;">
-                                <span>HP</span>
-                                <span style="margin-left: auto;">${character.hp} / ${character.hp_max}</span>
+                <div class="character-container">
+                    <div class="character-info">
+                        <div class="attack-info">
+                            <span>${character.displayname}</span>
+                            <span></span>
+                            <span class="attack-icon">⚔️</span>
+                            <span>${character.atk}</span>
+                        </div>
+                        <div class="stat">
+                            <div class="bar-container">
+                                <div class="bar" style="width: ${hpPercentage}%; display: flex; justify-content: flex-start; align-items: center; padding: 0 5px;">
+                                    <span>HP</span>
+                                    <span style="margin-left: auto;">${character.hp} / ${character.hp_max}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="stat">
-                        <div class="bar-container">
-                            <div class="bar threat-bar" style="width: ${threatPercentage}%; display: flex; justify-content: space-between; padding: 0 5px;">
-                                <span>Threat</span>
-                                <span></span> <!-- Empty span to keep text on the right -->
-                                <span>${character.threat}</span>
+                        <div class="stat">
+                            <div class="bar-container">
+                                <div class="bar threat-bar" style="width: ${threatPercentage}%; display: flex; justify-content: space-between; padding: 0 5px;">
+                                    <span>Threat</span>
+                                    <span></span>
+                                    <span>${character.threat}</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="stat">
+                            <label>Total Damage:</label>
+                            <span>${character.total_dmg}</span>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <label>Total Damage:</label>
-                        <span>${character.total_dmg}</span>
+                    <div class="character-image">
+                        <img src="${character.picture}" alt="${character.displayname}" />
                     </div>
-                `;
-
+                </div>
+            `;
                 dataDiv.appendChild(characterDiv);
             });
         })
@@ -57,5 +63,5 @@ function fetchCharacterData() {
             document.getElementById('data').textContent = 'Error fetching data: ' + error.message;
         });
 }
-
-fetchCharacterData();  // Fetch on page load
+setInterval(fetchCharacterData, 5000);
+fetchCharacterData();
