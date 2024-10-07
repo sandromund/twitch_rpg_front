@@ -10,13 +10,14 @@ h1 {
 }
 
 .character {
-    background-color: white;
+    background: linear-gradient(135deg, #eb420e, #d99939);
     border-radius: 10px;
     padding: 10px;
     margin: 10px auto;
-    width: 600px;
+    width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .character h2 {
     text-align: center;
@@ -43,6 +44,7 @@ label {
     background-color: #ddd;
     border-radius: 10px;
     height: 20px;
+    width: 200px;
     margin-top: 5px;
     position: relative;
     overflow: hidden;
@@ -60,7 +62,7 @@ label {
 }
 
 .threat-bar {
-    background-color: #ff5722;
+    background-color: #ac0d0d;
     /* Different color for Threat bar */
 }
 
@@ -82,4 +84,23 @@ span {
     /* Space between icon and attack number */
     font-size: 18px;
     /* Adjust size as needed */
+}
+
+.character-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.character-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.character-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
 }
