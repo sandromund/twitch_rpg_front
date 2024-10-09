@@ -13,3 +13,4 @@
 
 # ToDos
 - Timestamp for the last attack to remove inactive players
+- Grave stone when dead 
