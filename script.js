@@ -11,9 +11,25 @@ function fetchCharacterData() {
         .then(data => {
             const dataDiv = document.getElementById('data');
             dataDiv.innerHTML = '';  // Clear previous content
-            data.sort((a, b) => b.threat - a.threat);  // Sort characters by threat (highest first)
 
-            data.forEach(character => {
+            const now = new Date();
+            const oneMinuteAgo = new Date((now.getTime() - 60 * 1000) - 60 * 1000 * 60 * 2);  // One minute ago timestamp
+
+            console.log("Current time (UTC):", now.toISOString());
+            console.log("One minute ago (UTC):", oneMinuteAgo.toISOString());
+
+            // Filter characters whose 'updated_at' is within the last 1 minute
+            const filteredData = data.filter(character => {
+                const updatedAt = new Date(character.updated_at);
+                console.log(`Character: ${character.displayname}, updated_at (UTC):`, updatedAt.toISOString());
+                return updatedAt >= oneMinuteAgo;
+            });
+
+
+
+            filteredData.sort((a, b) => b.threat - a.threat);  // Sort characters by threat (highest first)
+
+            filteredData.forEach(character => {
                 const hpPercentage = (character.hp / character.hp_max) * 100;
                 const threatPercentage = character.threat;
 
