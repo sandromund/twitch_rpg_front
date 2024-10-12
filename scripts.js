@@ -56,17 +56,16 @@ function fetchCharacterData() {
                         <div class="stat">
                             <div class="bar-container">
                                 <div class="bar" style="width: ${hpPercentage}%; display: flex; justify-content: flex-start; align-items: center; padding: 0 5px;">
-                                    <span>HP</span>
-                                    <span style="margin-left: auto;">${character.hp} / ${character.hp_max}</span>
+                                    <span> HP:  ${character.hp} / ${character.hp_max}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="stat">
                             <div class="bar-container">
                                 <div class="bar threat-bar" style="width: ${threatPercentage}%; display: flex; justify-content: space-between; padding: 0 5px;">
-                                    <span>Threat</span>
+                                    <span>Threat:  ${character.threat}</span>
                                     <span></span>
-                                    <span>${character.threat}</span>
+                                    <span></span>
                                 </div>
                             </div>
                         </div>
