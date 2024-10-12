@@ -1,6 +1,6 @@
 const apiUrlCharacters = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
 const apiUrlMonsters = 'http://2.59.133.105:5000/rpg/api/136906771/monsters';
-const applyUpdateFilter = true; // Filter characters whose 'updated_at' is within the last 1 minute
+const applyUpdateFilter = false; // Filter characters whose 'updated_at' is within the last 1 minute
 
 
 function fetchCharacterData() {
@@ -93,32 +93,43 @@ function fetchMonsterData() {
             dataDiv.innerHTML = '';  // Clear previous content
 
             data.forEach(monster => {
-                // Create elements for monster visualization
-                const monsterElement = document.createElement('div');
-                monsterElement.classList.add('monster');
-
-                // Image of the monster
-                const monsterImage = document.createElement('img');
-                monsterImage.src = monster.picture;
-                monsterImage.alt = monster.name;
-                monsterImage.classList.add('monster-image');
-
-                // Monster details
                 const monsterDetails = document.createElement('div');
                 monsterDetails.classList.add('monster-details');
                 monsterDetails.innerHTML = `
-                    <h3>${monster.name}</h3>
-                    <p>HP: ${monster.hp}/${monster.hp_max}</p>
-                    <p>ATK: ${monster.atk}</p>
-                    <p>Counter Attacks: ${monster.counter_attacks}</p>
-                    <p>HP Cap: ${monster.hp_cap}</p>
-                    <p>Damage Cap: ${monster.dmg_cap}</p>
-                `;
+                    <div id="monster-data">
+                        <div class="monster">
+                            <div class="monster-image">
+                                <img src=${monster.picture} alt="Monster Image">
+                            </div>
+                            <div class="monster-details">
+                                <h3>Dark Dupomat</h3>
+                                <div class="stats-row">
+                                    <div class="stat">
+                                        <label>HP:</label>
+                                        <span id="monster-hp">${monster.hp}</span> / <span id="monster-hp-max">10000</span>
+                                        <div class="bar-container">
+                                            <div class="bar" style="width: 94.25%;">94%</div> <!-- Example for HP -->
+                                        </div>
+                                    </div>
+                                    <div class="stat">
+                                        <label>Attack:</label>
+                                        <span>${monster.atk}</span>
+                                    </div>
+                                    <div class="stat">
+                                        <label>Counter Attacks:</label>
+                                        <span>${monster.counter_attacks}</span>
+                                    </div>
+                                </div>
+                                <div class="attack-info">
+                                    <span class="attack-icon">⚔️</span>
+                                    <span>Damage Cap: ${monster.dmg_cap}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                // Append elements to the monster container
-                monsterElement.appendChild(monsterImage);
-                monsterElement.appendChild(monsterDetails);
-                dataDiv.appendChild(monsterElement);
+                `;
+                dataDiv.appendChild(monsterDetails);
             });
         })
         .catch(error => console.error('Error fetching monster data:', error));
