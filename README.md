@@ -20,10 +20,13 @@ In https://www.twitch.tv/yunkeed chat:
 - http://2.59.133.105:5000/rpg/api/136906771/inventories
 - http://2.59.133.105:5000/rpg/api/136906771/logs
 
-## Development
-- Pull+Update+install+reboot: http://2.59.133.105:5000/hooks/git/
 
 ### ToDos
 - DONE: Timestamp for the last attack to remove inactive players
 - Grave stone when dead 
 - Live point numbers are not visible when low on hp
+
+
+<!---
+Pull+Update+install+reboot: http://2.59.133.105:5000/hooks/git/
+-->
