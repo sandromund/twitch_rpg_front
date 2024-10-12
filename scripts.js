@@ -44,7 +44,7 @@ function fetchCharacterData() {
 
                 // Add default pic, if pic is missing
                 let characterPicture = character.picture;
-                if (characterPicture < 1) {
+                if (characterPicture.length < 1) {
                     characterPicture = defaultPicture;
                 }
 
