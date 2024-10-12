@@ -28,10 +28,16 @@ function fetchCharacterData() {
                     return updatedAt >= oneMinuteAgo;
                 });
             }
+
+            let playerThreadSum = 0;
+            for (let player of filteredData) {
+                playerThreadSum += Number(player.threat);
+            }
+
             filteredData.sort((a, b) => b.threat - a.threat);  // Sort characters by threat (highest first)
             filteredData.forEach(character => {
                 const hpPercentage = (character.hp / character.hp_max) * 100;
-                const threatPercentage = character.threat;
+                const threatPercentage = (character.threat / playerThreadSum) * 100;
 
                 const characterDiv = document.createElement('div');
                 characterDiv.classList.add('character');
