@@ -54,10 +54,7 @@ function fetchCharacterData() {
                         <div class="attack-info">
                             <span>${character.displayname}</span>
                             <span></span>
-                            <span class="attack-icon">⚔️</span>
-                            <span>${character.atk}</span>
-                            <span class="attack-icon">🔪</span>
-                            <span> ${character.total_dmg}</span>
+
                         </div>
                         <div class="stat">
                             <div class="bar-container">
@@ -69,11 +66,15 @@ function fetchCharacterData() {
                         <div class="stat">
                             <div class="bar-container">
                                 <div class="bar threat-bar" style="width: ${threatPercentage}%; display: flex; justify-content: space-between; padding: 0 5px;">
-                                    <span>Threat:  ${character.threat}</span>
-                                    <span></span>
-                                    <span></span>
+                                    <span>TR:  ${character.threat}</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="stat">
+                            <span class="attack-icon">⚔️</span>
+                            <span>${character.atk}</span>
+                            <span class="attack-icon">🔪</span>
+                            <span> ${character.total_dmg}</span>
                         </div>
                     </div>
                     <div class="character-image">
