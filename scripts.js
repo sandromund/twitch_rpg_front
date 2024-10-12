@@ -1,7 +1,10 @@
-const apiUrl = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
+const apiUrlCharacters = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
+const apiUrlMonsters = 'http://2.59.133.105:5000/rpg/api/136906771/monsters';
+const applyUpdateFilter = true; // Filter characters whose 'updated_at' is within the last 1 minute
+
 
 function fetchCharacterData() {
-    fetch(apiUrl)
+    fetch(apiUrlCharacters)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.status}`);
@@ -12,23 +15,20 @@ function fetchCharacterData() {
             const dataDiv = document.getElementById('data');
             dataDiv.innerHTML = '';  // Clear previous content
 
-            const now = new Date();
-            const oneMinuteAgo = new Date((now.getTime() - 60 * 1000) - 60 * 1000 * 60 * 2);  // One minute ago timestamp
+            let filteredData = data;
+            if (applyUpdateFilter) {
+                const now = new Date();
+                const oneMinuteAgo = new Date((now.getTime() - 60 * 1000)- 60 * 1000 * 60 * 2);
+                console.log("Current time (UTC):", now.toISOString());
+                console.log("One minute ago (UTC):", oneMinuteAgo.toISOString());
 
-            console.log("Current time (UTC):", now.toISOString());
-            console.log("One minute ago (UTC):", oneMinuteAgo.toISOString());
-
-            // Filter characters whose 'updated_at' is within the last 1 minute
-            const filteredData = data.filter(character => {
-                const updatedAt = new Date(character.updated_at);
-                console.log(`Character: ${character.displayname}, updated_at (UTC):`, updatedAt.toISOString());
-                return updatedAt >= oneMinuteAgo;
-            });
-
-
-
+                filteredData = data.filter(character => {
+                    const updatedAt = new Date(character.updated_at);
+                    console.log(`Character: ${character.displayname}, updated_at (UTC):`, updatedAt.toISOString());
+                    return updatedAt >= oneMinuteAgo;
+                });
+            }
             filteredData.sort((a, b) => b.threat - a.threat);  // Sort characters by threat (highest first)
-
             filteredData.forEach(character => {
                 const hpPercentage = (character.hp / character.hp_max) * 100;
                 const threatPercentage = character.threat;
@@ -79,5 +79,50 @@ function fetchCharacterData() {
             document.getElementById('data').textContent = 'Error fetching data: ' + error.message;
         });
 }
-setInterval(fetchCharacterData, 5000);
-fetchCharacterData();
+
+function fetchMonsterData() {
+    fetch(apiUrlMonsters)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const dataDiv = document.getElementById('monster-data');
+            dataDiv.innerHTML = '';  // Clear previous content
+
+            data.forEach(monster => {
+                // Create elements for monster visualization
+                const monsterElement = document.createElement('div');
+                monsterElement.classList.add('monster');
+
+                // Image of the monster
+                const monsterImage = document.createElement('img');
+                monsterImage.src = monster.picture;
+                monsterImage.alt = monster.name;
+                monsterImage.classList.add('monster-image');
+
+                // Monster details
+                const monsterDetails = document.createElement('div');
+                monsterDetails.classList.add('monster-details');
+                monsterDetails.innerHTML = `
+                    <h3>${monster.name}</h3>
+                    <p>HP: ${monster.hp}/${monster.hp_max}</p>
+                    <p>ATK: ${monster.atk}</p>
+                    <p>Counter Attacks: ${monster.counter_attacks}</p>
+                    <p>HP Cap: ${monster.hp_cap}</p>
+                    <p>Damage Cap: ${monster.dmg_cap}</p>
+                `;
+
+                // Append elements to the monster container
+                monsterElement.appendChild(monsterImage);
+                monsterElement.appendChild(monsterDetails);
+                dataDiv.appendChild(monsterElement);
+            });
+        })
+        .catch(error => console.error('Error fetching monster data:', error));
+}
+
+
+

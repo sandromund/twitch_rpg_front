@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Data with Live Bars</title>
+    <title>Monster Visualization</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div id="data"></div>
+    <div id="monster-data">
+        <p>Loading monster data...</p>
+    </div>
+
     <script src="scripts.js"></script>
     <script>
-        setInterval(fetchCharacterData, 5000);
-        fetchCharacterData();
+        fetchMonsterData();
+        setInterval(fetchMonsterData, 5000);
     </script>
-
 </body>
-
 </html>

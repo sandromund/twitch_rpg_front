@@ -104,3 +104,46 @@ span {
     object-fit: cover;
     border: 2px solid #ccc;
 }
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#monster-data {
+    width: 600px;
+}
+
+.monster {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.monster-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.monster-details {
+    flex: 1;
+}
+
+.monster-details h3 {
+    margin: 0 0 10px;
+}
+
+.monster-details p {
+    margin: 5px 0;
+}
