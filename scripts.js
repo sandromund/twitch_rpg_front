@@ -1,7 +1,7 @@
 const apiUrlCharacters = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
 const apiUrlMonsters = 'http://2.59.133.105:5000/rpg/api/136906771/monsters';
 const applyUpdateFilter = false; // Filter characters whose 'updated_at' is within the last 1 minute
-
+const defaultPicture = "https://static.wikia.nocookie.net/camp-halfblood-fanon/images/c/ca/Unknown.jpeg/revision/latest/thumbnail/width/360/height/450?cb=20200614091044";
 
 function fetchCharacterData() {
     fetch(apiUrlCharacters)
@@ -36,6 +36,12 @@ function fetchCharacterData() {
                 const characterDiv = document.createElement('div');
                 characterDiv.classList.add('character');
 
+                // Add default pic, if pic is missing
+                let characterPicture = character.picture;
+                if (characterPicture < 1) {
+                    characterPicture = defaultPicture;
+                }
+
                 characterDiv.innerHTML = `
                 <div class="character-container">
                     <div class="character-info">
@@ -66,7 +72,7 @@ function fetchCharacterData() {
                         </div>
                     </div>
                     <div class="character-image">
-                        <img src="${character.picture}" alt="${character.displayname}" />
+                        <img src="${characterPicture}" alt="${character.displayname}" />
                     </div>
                 </div>
             `;
