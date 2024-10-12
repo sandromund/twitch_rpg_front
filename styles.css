@@ -9,23 +9,29 @@ h1 {
     color: #333;
 }
 
-.character, .monster {
-    background: linear-gradient(135deg, #eb420e, #d99939); /* Unified background for players */
+.character,
+.monster {
+    background: linear-gradient(135deg, #eb420e, #d99939);
+    /* Unified background for players */
     border-radius: 10px;
     padding: 10px;
     margin: 10px auto;
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex; /* Use flexbox for alignment */
+    display: flex;
+    /* Use flexbox for alignment */
     align-items: center;
 }
 
 .monster {
-    background: linear-gradient(135deg, #5f6fa0, #a84dff); /* Different gradient for monsters */
-    border: 1px solid #666; /* Darker border for monsters */
+    background: linear-gradient(135deg, #5f6fa0, #a84dff);
+    /* Different gradient for monsters */
+    border: 1px solid #666;
+    /* Darker border for monsters */
 }
 
-.character h2, .monster h3 {
+.character h2,
+.monster h3 {
     text-align: center;
     margin-bottom: 5px;
 }
@@ -49,7 +55,7 @@ label {
 .bar-container {
     background-color: #ddd;
     border-radius: 10px;
-    height: 20px;
+    height: 25px;
     width: 200px;
     margin-top: 5px;
     position: relative;
@@ -57,10 +63,11 @@ label {
 }
 
 .bar {
-    background-color: #4CAF50; /* HP bar color */
+    background-color: #4CAF50;
+    /* HP bar color */
     height: 100%;
     line-height: 20px;
-    color: white;
+    color: rgb(6, 1, 1);
     text-align: center;
     white-space: nowrap;
     border-radius: 10px;
@@ -68,7 +75,9 @@ label {
 }
 
 .threat-bar {
-    background-color: #ac0d0d; /* Different color for Threat bar */
+    background-color: #a31d1d;
+    color: rgb(255, 255, 255);
+    /* Different color for Threat bar */
 }
 
 span {
@@ -78,27 +87,34 @@ span {
 
 .attack-info {
     display: flex;
-    align-items: center; /* Center align the icon and number vertically */
-    margin-top: 5px; /* Optional margin for spacing */
+    align-items: center;
+    /* Center align the icon and number vertically */
+    margin-top: 5px;
+    /* Optional margin for spacing */
 }
 
 .attack-icon {
-    margin-right: 5px; /* Space between icon and attack number */
-    font-size: 18px; /* Adjust size as needed */
+    margin-right: 5px;
+    /* Space between icon and attack number */
+    font-size: 18px;
+    /* Adjust size as needed */
 }
 
-.character-container, .monster-container {
+.character-container,
+.monster-container {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
 
-.character-info, .monster-details {
+.character-info,
+.monster-details {
     flex: 1;
     margin-right: 20px;
 }
 
-.character-image img, .monster-image img {
+.character-image img,
+.monster-image img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
