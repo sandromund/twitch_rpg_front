@@ -1,6 +1,6 @@
 const apiUrlCharacters = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
 const apiUrlMonsters = 'http://2.59.133.105:5000/rpg/api/136906771/monsters';
-const applyUpdateFilter = false; // Filter characters whose 'updated_at' is within the last 1 minute
+const applyUpdateFilter = true; // Filter characters whose 'updated_at' is within the last 1 minute
 
 
 function fetchCharacterData() {
@@ -18,7 +18,7 @@ function fetchCharacterData() {
             let filteredData = data;
             if (applyUpdateFilter) {
                 const now = new Date();
-                const oneMinuteAgo = new Date((now.getTime() - 60 * 1000)- 60 * 1000 * 60 * 2);
+                const oneMinuteAgo = new Date((now.getTime() - 60 * 1000) - 60 * 1000 * 60 * 2);
                 console.log("Current time (UTC):", now.toISOString());
                 console.log("One minute ago (UTC):", oneMinuteAgo.toISOString());
 
