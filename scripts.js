@@ -1,6 +1,6 @@
 const apiUrlCharacters = 'http://2.59.133.105:5000/rpg/api/136906771/characters';
 const apiUrlMonsters = 'http://2.59.133.105:5000/rpg/api/136906771/monsters';
-const applyUpdateFilter = true; // Filter characters whose 'updated_at' is within the last 1 minute
+const applyUpdateFilter = false; // Filter characters whose 'updated_at' is within the last 1 minute
 
 
 function fetchCharacterData() {
@@ -44,6 +44,8 @@ function fetchCharacterData() {
                             <span></span>
                             <span class="attack-icon">⚔️</span>
                             <span>${character.atk}</span>
+                            <span class="attack-icon">🔪</span>
+                            <span> ${character.total_dmg}</span>
                         </div>
                         <div class="stat">
                             <div class="bar-container">
@@ -61,10 +63,6 @@ function fetchCharacterData() {
                                     <span>${character.threat}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="stat">
-                            <label>Total Damage:</label>
-                            <span>${character.total_dmg}</span>
                         </div>
                     </div>
                     <div class="character-image">
